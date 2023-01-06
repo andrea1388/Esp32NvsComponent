@@ -56,7 +56,20 @@ bool NvsParameters::load(const char* paramname, uint8_t *out)
     esp_err_t err= nvs_get_u8(my_handle, paramname,  out);
     if(err==ESP_OK)
     {
-        ESP_LOGI(TAG, "NvsParameters::load param=%s val=%d",paramname,*out);
+        ESP_LOGI(TAG, "NvsParameters::load param=%s val=%u",paramname,*out);
+    } else
+    {
+        ESP_LOGI(TAG, "NvsParameters::load param=%s err=%s",paramname,esp_err_to_name(err));
+    }
+    return err;
+}
+
+bool NvsParameters::load(const char* paramname, uint32_t *out)
+{
+    esp_err_t err= nvs_get_u32(my_handle, paramname,  out);
+    if(err==ESP_OK)
+    {
+        ESP_LOGI(TAG, "NvsParameters::load param=%s val=%lu",paramname,*out);
     } else
     {
         ESP_LOGI(TAG, "NvsParameters::load param=%s err=%s",paramname,esp_err_to_name(err));
